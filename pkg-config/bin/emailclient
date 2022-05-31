@@ -1,0 +1,3 @@
+#!/bin/sh
+
+terminal -e sh -c 'neomutt'

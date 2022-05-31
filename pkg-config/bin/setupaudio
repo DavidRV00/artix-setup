@@ -1,0 +1,11 @@
+#!/bin/sh
+pulseaudio -D &
+sleep 3
+
+jack_control start &
+sleep 3
+
+pajackconnect start &
+sleep 3
+
+a2jmidid -e &
