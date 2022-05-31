@@ -1,0 +1,4 @@
+#!/bin/sh
+
+killall -v newsboat
+terminal -e sh -c 'newsboat'
