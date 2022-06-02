@@ -12,6 +12,7 @@ abook
 mutt-wizard
 pam-gnupg
 urlview
+buku
 
 # Basics
 brave-bin
