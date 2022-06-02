@@ -224,6 +224,11 @@ cd $HOME/src
 git clone https://github.com/brummer10/pajackconnect
 cp pajackconnect/pajackconnect $HOME/bin/
 
+cd $HOME/src
+git clone https://github.com/DavidRV00/bookmarks
+cd bookmarks
+./install
+
 # Set up email
 echo
 set +x
