@@ -19,6 +19,7 @@ set mouse=a
 set noshowmode
 "set noshowcmd
 set nowrap
+"set expandtab
 
 let $PAGER=''
 
@@ -447,7 +448,7 @@ set background=dark
 
 "colorscheme Atelier_CaveDark
 "colorscheme 1989
-"colorscheme OceanicNext
+colorscheme OceanicNext
 "colorscheme blues
 
 "let g:airline_theme='base16_eighties'
@@ -481,9 +482,9 @@ set background=dark
 "  autocmd WinLeave * set nocursorline
 "augroup END
 
-set fillchars+=vert:\ " Note the space
+"set fillchars+=vert:\ " Note the space
 "set fillchars+=vert:∎" Note the space
-"set fillchars+=vert:┃" Note the space
+set fillchars+=vert:┃" Note the space
 
 highlight Comment cterm=italic
 

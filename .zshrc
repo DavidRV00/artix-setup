@@ -105,3 +105,5 @@ export FZF_TMUX=0
 export FZF_DEFAULT_OPTS='--height 20% --border'
 
 eval "$(starship init zsh)"
+
+#source /usr/share/nvm/init-nvm.sh
