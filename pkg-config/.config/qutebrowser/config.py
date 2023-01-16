@@ -5,8 +5,8 @@ config.load_autoconfig()
 c.tabs.position = "top"
 
 c.url.searchengines = {
-    # 'DEFAULT':       'https://searx.ninja/search?q={}',
-    'DEFAULT':       'https://searx.be/search?q={}',
+    'DEFAULT':       'https://searx.ninja/search?q={}',
+    # 'DEFAULT':       'https://searx.be/search?q={}',
 }
 with open('/home/david/.config/qutebrowser/searchengines') as csvfile:
     reader = csv.reader(csvfile, delimiter=' ')
@@ -50,6 +50,10 @@ config.bind(';R', 'hint links spawn getrss-youtube {hint-url}')
 config.bind(',R', 'spawn getrss-youtube {url}')
 
 config.bind(';s', 'spawn passmenu -b ;; hint inputs')
+
+config.bind(',B', 'spawn --userscript qute-buku')
+config.bind(',o', 'spawn --userscript qute-bukuopen')
+config.bind(',O', 'spawn --userscript qute-bukuopen -t')
 
 # Workaround for jump-to-top bug
 # config.bind('o', 'set statusbar.show always;; set-cmd-text -s :open')
