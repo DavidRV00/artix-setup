@@ -16,6 +16,8 @@ git
 groff
 exa
 rsync
+syncthing
+syncthing-runit
 htop
 mpv
 #libreoffice-still
@@ -78,6 +80,8 @@ xf86-video-intel
 # Image manipulation
 imagemagick
 gimp
+#inkscape
+kolourpaint
 
 # Audio
 community/ardour

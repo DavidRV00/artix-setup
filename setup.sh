@@ -259,7 +259,7 @@ EOF
 
 # Set up runit autostarts
 set +x
-for svc in bluetoothd cronie ntpd wpa_supplicant; do
+for svc in bluetoothd cronie ntpd wpa_supplicant syncthing; do
 	set -x
 	sudo ln -s /etc/runit/sv/"$svc" /run/runit/service/
 	set +x
