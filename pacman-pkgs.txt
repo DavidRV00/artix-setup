@@ -5,6 +5,8 @@ network-manager-applet
 networkmanager-runit
 nm-connection-editor
 wpa_supplicant-runit
+connman
+connman-runit
 
 # Basics
 vim
@@ -40,7 +42,6 @@ zathura-pdf-poppler
 zip
 zsh
 man
-gnome-calendar
 calcurse
 python-urllib3
 libssh2
@@ -51,6 +52,10 @@ transmission-cli
 python-pynvim
 texlive-most
 entr
+discord
+jq
+kalendar
+lf
 
 # Sysadmin
 cronie
@@ -59,6 +64,7 @@ ntp
 ntp-runit
 artools-base
 ntfs-3g
+artix-archlinux-support
 
 # Graphical environment
 arandr
@@ -76,6 +82,8 @@ unclutter
 redshift
 gnome-themes-extra
 xf86-video-intel
+adwaita-qt6
+plasma-workspace
 
 # Image manipulation
 imagemagick
@@ -84,7 +92,7 @@ gimp
 kolourpaint
 
 # Audio
-community/ardour
+ardour
 calf
 realtime-privileges
 jack2
@@ -95,6 +103,8 @@ pavucontrol
 #pulseadio-bluetooth
 qjackctl
 a2jmidid
+drumkv1
+zynaddsubfx
 
 # Video recording
 obs-studio
@@ -109,8 +119,24 @@ mpop
 msmtp
 qbittorrent
 w3m
+brave-bin
+electrum
+firefox
+monero
+torbrowser-launcher
 
 # Bluetooth
 bluez
 bluez-runit
 bluez-utils
+
+# Dev
+box2d
+clang
+docker
+docker-compose
+docker-runit
+postgresql
+textlive-most
+tiled
+xdot
