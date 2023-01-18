@@ -49,6 +49,7 @@ openssh
 wget
 newsboat
 transmission-cli
+cryptsetup
 python-pynvim
 texlive-most
 entr
