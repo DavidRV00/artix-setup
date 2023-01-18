@@ -9,20 +9,8 @@
 # 		- mail sync
 #			- pass git alias / command
 #			- pam gnupg
-#			- .ssh config
-#			- cron logs / syslogs
-#			- midi config?
-#  		- optional bluetooth?
-
-# NOTE:
-# Poker:
-#		- install wine, wine-mono,
-# 888poker.com (also doesn't seem to work well):
-#		- install samba, samba-runit, lib32-gnutls
-# Pokerstars (doesn't seem to work well):
-#		- lib32-openal
-# 	- download pokerstars using Windows session
-#		- make script to launch PokerStars.exe
+#				- follow the instructions in https://github.com/cruegge/pam-gnupg
+#					- login, system-local-login, ...
 
 set -x
 
@@ -35,7 +23,7 @@ srcdir="$(pwd)"
 
 mkdir -p $HOME/src
 
-sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh
+sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g
 
 # Interactively mount drives
 set +x
@@ -108,6 +96,7 @@ gpgconf --kill gpg-agent
 
 # SSH keys
 mkdir -p $HOME/.ssh
+ssh-keygen
 echo "Enter ssh key location to copy: "
 read sshfile
 while [ "$sshfile" != "" ]; do
@@ -141,11 +130,11 @@ sudo pacman -S artix-archlinux-support
 
 cd "$srcdir"
 sudo cp /etc/pacman.conf pacman.conf-bkp
-sudo cp pacman.conf-sample /etc/pacman.conf
+sudo cp setup-config/pacman.conf-sample /etc/pacman.conf
 sudo pacman-key --populate archlinux
 
 sudo cp /etc/makepkg.conf makepkg.conf-bkp
-sudo cp makepkg.conf-sample /etc/makepkg.conf
+sudo cp setup-config/makepkg.conf-sample /etc/makepkg.conf
 
 sudo pacman -Syu
 
@@ -170,8 +159,11 @@ sudo rm pacman.conf-bkp
 sudo rm makepkg.conf-bkp
 
 # Retrieve configs + scripts / interfaces
-cd $HOME/src
-git clone --bare https://github.com/davidrv00/bare-configs.git
+#cd $HOME/src
+#git clone --bare https://github.com/davidrv00/bare-configs.git
+# TODO: Test this
+git init --bare $HOME/src/bare-configs.git
+git subtree --prefix=pkg-config push $HOME/src/bare-configs.git
 
 alias config='git --git-dir=$HOME/src/bare-configs.git --work-tree=$HOME'
 config config --local status.showUntrackedFiles no
@@ -200,19 +192,24 @@ cd vim-jupyter-run
 ./install
 export PATH="/opt/miniconda3/bin:$PATH"
 pip install nbformat
-pip install nbconver
+pip install nbconvert
+
+git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 
 cd $HOME
 wget http://www.drchip.org/astronaut/vim/vbafiles/netrw.vba.gz
 vim netrw.vba.gz +"packadd vimball" +"so %" +qall
 rm $HOME/netrw.vba*
 
-git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
-
 cd $HOME/src
 git clone https://github.com/brummer10/pajackconnect
 cp pajackconnect/pajackconnect $HOME/bin/
+
+cd $HOME/src
+git clone https://github.com/DavidRV00/bookmarks
+cd bookmarks
+./install
 
 # Set up email
 echo
@@ -244,7 +241,7 @@ EOF
 
 # Set up runit autostarts
 set +x
-for svc in bluetoothd cronie ntpd wpa_supplicant; do
+for svc in bluetoothd cronie ntpd wpa_supplicant syncthing; do
 	set -x
 	sudo ln -s /etc/runit/sv/"$svc" /run/runit/service/
 	set +x
@@ -267,5 +264,4 @@ sudo ln -sfT dash /usr/bin/sh
 
 # TODO: set up cron jobs
 
-# TODO: interactively set up displays + wallpaper
-
+# TODO: Setup audio output(s)

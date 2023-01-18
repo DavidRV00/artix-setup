@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+
+import sys
+import urllib3
+import re
+
+def main(argv):
+    http = urllib3.PoolManager()
+    query = ' '.join(argv[1:])
+    r = http.request('GET', 'https://tpb.party/search/{}/0/99/0'.format(query))
+
+    titles = re.findall(r"(?<=title\=\"Details for )[^\"]*", str(r.data))
+    urls = re.findall(r"(?<=href=\")magnet:[^\"]*", str(r.data))
+    tus = list(zip(titles, urls))
+    for i in range(len(tus)):
+        # print("({})\t{}:\t{}".format(i, tus[i][0], tus[i][1]))
+        print("{}:   {}".format(tus[i][0], tus[i][1]))
+
+if __name__ == "__main__":
+    main(sys.argv)
+
+# from __future__ import print_function;
+# import requests;
+# from bs4 import BeautifulSoup;
+# import urllib3;
+# from subprocess import call;
+#
+#
+#
+# class bcolors:
+#     HEADER = '\033[95m'
+#     OKBLUE = '\033[94m'
+#     OKGREEN = '\033[92m'
+#     WARNING = '\033[93m'
+#     FAIL = '\033[91m'
+#     ENDC = '\033[0m'
+#     BOLD = '\033[1m'
+#     UNDERLINE = '\033[4m'
+#
+#
+# class PirateParser:
+#
+#
+#
+#     def testFn(self):
+#         return "pageParser!";
+#
+#     def searchPage(self, strSearch, pageNumber):
+#
+#         http = urllib3.PoolManager()
+#
+#         f = {"q":strSearch, "page":pageNumber, "orderby":"99" };
+#         # str = urllib.urlencode(f);
+#
+#         webpage = "https://tpbunblocked.org";
+#         url = webpage + "/s/?" + str;
+#         # url = webpage + "/s/?";
+#
+#         print('a') # DEBUG
+#
+#         # page = requests.get(url);
+#         page = http.request('GET', url, fields=f);
+#
+#         print('b') # DEBUG
+#         links = [];
+#
+#         if (page.status_code == 200):
+#             soup = BeautifulSoup(page.content, 'html.parser');
+#
+#
+#             for table in soup.find_all("table", id="searchResult"):
+#                 for tr in table.find_all("tr"):
+#                     tmpLink = [];
+#                     counter = 0;
+#                     for td in tr.find_all("td"):
+#
+#                         # first find link and text
+#                         div = td.find(class_="detName");
+#
+#                         if div:
+#                             link = div.find("a");
+#                             linkAddress = link.get("href");
+#                             tmpLink.append(link.get_text());
+#                             tmpLink.append(webpage + linkAddress);
+#
+#                         if (td.get("align") == "right"):
+#                             tmpLink.append(td.get_text());
+#                             counter += 1;
+#                             if (counter == 2):
+#                                 links.append(tmpLink);
+#
+#
+#         else:
+#             print("Bad status code: " + page.status_code);#
+#
+#         return links;
+#
+#     def getLink(self, url):
+#         page = requests.get(url);
+#
+#         if (page.status_code == 200):
+#             soup = BeautifulSoup(page.content, 'html.parser');
+#
+#             found = soup.find('div', class_='download');
+#             magnetLink = found.find('a');
+#
+#             return magnetLink.get('href');
+#
+#
+# result = [];
+#
+# def checkInput(str):
+#     if (str == "exit"):
+#         return 0;
+#     elif (str == "next"):
+#         return 1;
+#     elif (str == "search"):
+#         return 2;
+#
+# def getSearchInput():
+#     return input("Enter search string: ");
+#
+# print("Starting scraper...");
+#
+# keepGoing = True;
+#
+# strSearch = getSearchInput();
+# pp = PirateParser();
+#
+# pageNumber = 0;
+#
+# firstIndex = 0;
+#
+# print(1) # DEBUG
+#
+# while (keepGoing):
+#
+#     print(2) # DEBUG
+#     res = pp.searchPage(strSearch,pageNumber);
+#
+#     print(2.5) # DEBUG
+#
+#     result.extend(res);
+#
+#     print(2.75) # DEBUG
+#
+#     for i in range(firstIndex, len(result)):
+#         print(bcolors.OKGREEN + '[' + str(i) + '] ' + bcolors.ENDC, end='');
+#         print (result[i][0] + " " +  result[i][2] + " " + result[i][3]);
+#
+#     print(3) # DEBUG
+#
+#     firstIndex = len(result);
+#     downloadId = input("Pick ID to download: ");
+#
+#     inputId = checkInput(downloadId);
+#
+#     print(4) # DEBUG
+#
+#     if(inputId == 0):
+#         exit();
+#     elif(inputId == 1):
+#         pageNumber += 1;
+#         continue;
+#     elif (inputId == 2):
+#         result = [];
+#         pageNumber = 0;
+#         firstIndex = 0;
+#         strSearch = getSearchInput();
+#         continue;
+#     else:
+#         downloadId = int(downloadId);
+#         magnetLink = pp.getLink(result[downloadId][1]);
+#         print(magnetLink);
+#         # call(["deluge-console", "add", magnetLink]);
+#
+#
+# print("Finished!");

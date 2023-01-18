@@ -1,0 +1,7 @@
+#!/bin/bash
+#file="$(echo $1 | sed 's/ /\\ /g')"
+#file="$(echo $1 | sed 's/ /\ /g')"
+file="\"$1\""
+#file="$1"
+echo "$file"
+umpv-ctrl loadfile "$file" append

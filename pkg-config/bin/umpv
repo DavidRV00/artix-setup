@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+
+"""
+This script emulates "unique application" functionality on Linux. When starting
+playback with this script, it will try to reuse an already running instance of
+mpv (but only if that was started with umpv). Other mpv instances (not started
+by umpv) are ignored, and the script doesn't know about them.
+
+This only takes filenames as arguments. Custom options can't be used; the script
+interprets them as filenames. If mpv is already running, the files passed to
+umpv are appended to mpv's internal playlist. If a file does not exist or is
+otherwise not playable, mpv will skip the playlist entry when attempting to
+play it (from the GUI perspective, it's silently ignored).
+
+If mpv isn't running yet, this script will start mpv and let it control the
+current terminal. It will not write output to stdout/stderr, because this
+will typically just fill ~/.xsession-errors with garbage.
+
+mpv will terminate if there are no more files to play, and running the umpv
+script after that will start a new mpv instance.
+
+Note: you can supply custom mpv path and options with the MPV environment
+      variable. The environment variable will be split on whitespace, and the
+      first item is used as path to mpv binary and the rest is passed as options
+      _if_ the script starts mpv. If mpv is not started by the script (i.e. mpv
+      is already running), this will be ignored.
+"""
+
+import sys
+import os
+import socket
+import errno
+import subprocess
+import fcntl
+import stat
+import string
+import re
+
+# files = sys.argv[1:]
+args = sys.argv[1:]
+i = args.index("--") if "--" in args else len(args)
+files = args[0:i]
+mpv_args = args[i+1:]
+print(sys.argv)
+print(args)
+print(files)
+print(mpv_args)
+
+# this is the same method mpv uses to decide this
+def is_url(filename):
+    parts = filename.split("://", 1)
+    if len(parts) < 2:
+        return False
+    # protocol prefix has no special characters => it's an URL
+    allowed_symbols = string.ascii_letters + string.digits + '_'
+    prefix = parts[0]
+    return all(map(lambda c: c in allowed_symbols, prefix))
+
+# make them absolute; also makes them safe against interpretation as options
+def make_abs(filename):
+    if not is_url(filename):
+        return os.path.abspath(filename)
+    return filename
+
+
+def fix_filename(f):
+    # Remove list info from youtube url if we're watching an individual video
+    ret = re.sub("&list=.*", "", f)
+
+    return ret
+
+
+files = [make_abs(f) for f in files]
+
+SOCK = os.path.join(os.getenv("HOME"), ".umpv_socket")
+
+sock = None
+try:
+    sock = socket.socket(socket.AF_UNIX)
+    sock.connect(SOCK)
+except socket.error as e:
+    if e.errno == errno.ECONNREFUSED:
+        sock = None
+        pass  # abandoned socket
+    elif e.errno == errno.ENOENT:
+        sock = None
+        pass # doesn't exist
+    else:
+        raise e
+
+if sock:
+    print("yes sock")
+
+    # if len(files) > 1:
+    #     print("clearing")
+    #     sock.send(("playlist-clear\n").encode("utf-8"))
+
+    with open("/home/david/umpv-first.log", "w") as firstlog:
+        firstlog.write("Playing: {}\n".format(fix_filename(files[0])))
+
+    # Unhandled race condition: what if mpv is terminating right now?
+    for i in range(len(files)):
+        f = files[i]
+
+        # escape: \ \n "
+        f = f.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n")
+
+        f = fix_filename(f)
+
+        f = "\"" + f + "\""
+
+        flag = "replace" if i == 0 else "append"
+        # flag = "append"
+        # flag = "replace"
+        sock.send(("raw loadfile " + f + " " + flag + "\n").encode("utf-8"))
+        # if i == 0:
+            # sock.send(("playlist-next\n").encode("utf-8"))
+            # sock.send(("playlist-clear\n").encode("utf-8"))
+else:
+    print("no sock")
+    # Let mpv recreate socket if it doesn't already exist.
+
+    opts = (os.getenv("MPV") or "mpv").split()
+    if len(mpv_args) > 0:
+        opts.extend(mpv_args)
+    # opts.extend(["--no-terminal", "--input-ipc-server=" + SOCK,
+
+    vid_format = "135"   # 480p mp4
+    # vid_format = "136" # 720p mp4
+
+    opts.extend(["--no-terminal", "--log-file=~/umpv.log", "--force-window=immediate", "--ytdl-format="+vid_format+"+bestaudio/best", "--keep-open=yes", "--keep-open-pause=no", "--input-ipc-server=" + SOCK,
+                 "--"])
+    opts.extend((fix_filename(f) for f in files))
+
+    with open("/home/david/umpv-first.log", "w") as firstlog:
+        firstlog.write("Playing: {}\n".format(fix_filename(files[0])))
+
+    subprocess.check_call(opts)

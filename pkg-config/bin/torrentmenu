@@ -1,0 +1,15 @@
+#!/bin/sh
+
+tmpfile="/home/david/tmp/torrentsearch_tmp"
+storagedir="/media/storage"
+
+query="$(echo '' | dmenu -b -p 'Torrent Search: ')"
+torrentsearch $query > $tmpfile
+if [ -s $tmpfile ]; then
+  # TODO: Select dir with `ranger --show-only-dirs --choosedir outfile`
+
+  magnet=$(cat $tmpfile | dmenu -b -l $(cat $tmpfile | wc -l) | awk -F ":   " '{print $2}') && \
+  dir=$(printf "$HOME/Downloads/\n$storagedir/videos/movies/\n$storagedir/videos/tv/\n$storagedir/music/" | dmenu -b -l 10) && \
+  #i3-sensible-terminal -e "tmux new-session transmission-cli -w \"$dir\" \"$magnet\""
+  terminal -e transmission-cli -w "$dir" "$magnet"
+fi

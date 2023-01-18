@@ -1,0 +1,8 @@
+!google https://google.com/search?hl=en&q={}
+!startpage https://startpage.com/do/search?query={}
+!youtube https://www.youtube.com/results?search_query={}
+!amazon https://smile.amazon.com/s?k={}
+!ebay https://www.ebay.com/sch/i.html?_nkw={}
+!maps https://maps.google.com/maps/search/{}
+!omaps https://www.openstreetmap.org/search?query={}
+!thepiratebay https://thepiratebay.org/search.php?q={}

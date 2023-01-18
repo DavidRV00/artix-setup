@@ -1,19 +1,27 @@
 # Graphical environment
 #nerd-fonts-complete
-adwaita-qt6
 
 # Audio
 vital-synth
 zyn-fusion
 #distrho-ports-lv2-git
+talentedhack-git
 
 # Web/email/etc
 abook
 mutt-wizard
 pam-gnupg
 urlview
+buku
 
 # Basics
-brave-bin
 miniconda3
 dashbinsh
+castnow-git
+sc-im
+zoom
+
+# Dev
+entt
+libresprite
+nvm
