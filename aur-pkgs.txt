@@ -4,7 +4,7 @@ adwaita-qt6
 
 # Audio
 vital-synth
-#zyn-fusion
+zyn-fusion
 #distrho-ports-lv2-git
 
 # Web/email/etc
@@ -16,3 +16,4 @@ urlview
 # Basics
 brave-bin
 miniconda3
+dashbinsh

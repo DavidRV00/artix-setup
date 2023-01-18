@@ -46,6 +46,7 @@ openssh
 wget
 newsboat
 transmission-cli
+cryptsetup
 
 # Sysadmin
 cronie
@@ -102,6 +103,9 @@ mpop
 msmtp
 qbittorrent
 w3m
+electrum
+monero
+torbrowser-launcher
 
 # Bluetooth
 bluez

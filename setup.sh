@@ -1,21 +1,6 @@
 #!/bin/sh
 
 # TODO:
-#		- run through vm install
-#		- reinstall laptop
-#			- artix on usb
-#			- backup everything to external
-#			- attach external and pull data
-#---------------------------------------
-#		- data
-#			- liked media
-#			- bookmarks (browser, rss)
-#			- website settings?
-#			- emails
-#		- sync rss urls over private git
-#		- remote backups
-#		- midi config?
-#		- optional bluetooth?
 #		- organize configs better
 #			- maintain branches: base, custom(/branches per computer)
 #		- make modular, idempotent setup scripts that can be simply slotted in
@@ -24,7 +9,20 @@
 # 		- mail sync
 #			- pass git alias / command
 #			- pam gnupg
-#			- git passwords + token
+#			- .ssh config
+#			- cron logs / syslogs
+#			- midi config?
+#  		- optional bluetooth?
+
+# NOTE:
+# Poker:
+#		- install wine, wine-mono,
+# 888poker.com (also doesn't seem to work well):
+#		- install samba, samba-runit, lib32-gnutls
+# Pokerstars (doesn't seem to work well):
+#		- lib32-openal
+# 	- download pokerstars using Windows session
+#		- make script to launch PokerStars.exe
 
 set -x
 
@@ -263,6 +261,9 @@ Section "Device"
 	Option		"TearFree"	"true"
 EndSection
 EOF
+
+# Posix shell
+sudo ln -sfT dash /usr/bin/sh
 
 # TODO: set up cron jobs
 
