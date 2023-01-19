@@ -90,9 +90,12 @@ sudo fstabgen -U / | sudo tee /etc/fstab
 set -euxo pipefail
 
 # GPG keys
-gpg --full-gen-key
+read -p "Generate a new GPG key? [y/n] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	gpg --full-gen-key
+fi
 
-# TODO: How am I supposed to find it while in this installer?
 set +x
 echo "Enter gpg location(s) to import (empty to stop): "
 #read -r secretfile
