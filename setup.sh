@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+
+# TODO first:
+# option for full-disk encryption
+# cryptsetup to mount locked usb
 
 # TODO:
 #		- organize configs better
@@ -21,9 +25,9 @@ alias yay="yay --noconfirm"
 
 srcdir="$(pwd)"
 
-mkdir -p $HOME/src
-mkdir -p $HOME/projects
-mkdir -p $HOME/current
+mkdir -p "$HOME/src"
+mkdir -p "$HOME/projects"
+mkdir -p "$HOME/current"
 
 sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g
 
@@ -40,7 +44,7 @@ while true; do
 	[ "$part" != "" ] || break
 
 	echo "Enter mount location for $part: "
-	read loc
+	read -r loc
 
 	set -x
 	mkdir -p "$loc"
@@ -63,7 +67,7 @@ gpg --full-gen-key
 
 set +x
 echo "Enter gpg location to import (empty to stop): "
-read secretfile
+read -r secretfile
 while [ "$secretfile" != "" ]; do
 	set -x
 	gpg --import $secretfile
@@ -92,20 +96,20 @@ while [ "$secretfile" != "" ]; do
 	clear
 
 	echo "Enter gpg location to import (empty to stop): "
-	read secretfile
+	read -r secretfile
 done
 gpgconf --kill gpg-agent
 
 # SSH keys
-mkdir -p $HOME/.ssh
+mkdir -p "$HOME/.ssh"
 ssh-keygen
 echo "Enter ssh key location to copy: "
-read sshfile
+read -r sshfile
 while [ "$sshfile" != "" ]; do
-	cp $sshfile $HOME/.ssh/
+	cp "$sshfile" "$HOME/.ssh/"
 
 	echo "Enter ssh key location to copy: "
-	read sshfile
+	read -r sshfile
 done
 if [ "$(ls ~/.ssh)" != "" ]; then
 	chmod 600 ~/.ssh/*
@@ -114,25 +118,25 @@ fi
 # Password store
 if test -f ~/.ssh/passgit; then
 	GIT_SSH_COMMAND="ssh -i ~/.ssh/passgit -F /dev/null" \
-		git clone ssh://git@davidv.xyz:/home/git/pass-repo $HOME/.password-store
+		git clone ssh://git@davidv.xyz:/home/git/pass-repo "$HOME/.password-store"
 fi
 
 # Git config
 echo "Enter git email: "
-read gitemail
+read -r gitemail
 git config --global user.email "$gitemail"
 echo
 
 echo "Enter git name: "
-read gitname
+read -r gitname
 git config --global user.name "$gitname"
 
 # Set up package settings
-sudo pacman -S artix-archlinux-support
-
 cd "$srcdir"
 sudo cp /etc/pacman.conf pacman.conf-bkp
 sudo cp setup-config/pacman.conf-sample /etc/pacman.conf
+sudo pacman -S artix-archlinux-support
+
 sudo pacman-key --populate archlinux
 
 sudo cp /etc/makepkg.conf makepkg.conf-bkp
@@ -145,14 +149,14 @@ cat pacman-pkgs.txt | sed 's/^#.*//g' | sed '/^$/d' | sudo pacman -S -
 
 # Install yay
 sudo pacman -S base-devel
-cd $HOME/src
+cd "$HOME/src"
 rm -rf yay
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 cd ..
 rm -rf yay
-cd $srcdir
+cd "$srcdir"
 
 # Install AUR packages
 cat aur-pkgs.txt | sed 's/^#.*//g' | sed '/^$/d' | yay -S -
@@ -161,34 +165,34 @@ sudo rm pacman.conf-bkp
 sudo rm makepkg.conf-bkp
 
 # Retrieve configs + scripts / interfaces
-#cd $HOME/src
+#cd "$HOME/src"
 #git clone --bare https://github.com/davidrv00/bare-configs.git
 # TODO: Test this
-git init --bare $HOME/src/bare-configs.git
-git subtree --prefix=pkg-config push $HOME/src/bare-configs.git
+git init --bare "$HOME/src/bare-configs.git"
+git subtree --prefix=pkg-config push "$HOME/src/bare-configs.git"
 
-alias config='git --git-dir=$HOME/src/bare-configs.git --work-tree=$HOME'
+alias config='git --git-dir="$HOME/src/bare-configs.git" --work-tree="$HOME"'
 config config --local status.showUntrackedFiles no
-config restore --staged $HOME
-config restore $HOME
+config restore --staged "$HOME"
+config restore "$HOME"
 
-touch $HOME/.vim_noport.vim
-touch $HOME/.vim_vundle_noport.vim
+touch "$HOME/.vim_noport.vim"
+touch "$HOME/.vim_vundle_noport.vim"
 
 # Retrieve source-based tools
-cd $HOME/src
+cd "$HOME/src"
 git clone https://github.com/DavidRV00/dwm-fork
 cd dwm-fork
 make
 sudo make install
 
-cd $HOME/src
+cd "$HOME/src"
 git clone https://github.com/DavidRV00/dmenu-fork
 cd dmenu-fork
 make
 sudo make install
 
-cd $HOME/src
+cd "$HOME/src"
 git clone https://github.com/DavidRV00/vim-jupyter-run
 cd vim-jupyter-run
 ./install
@@ -196,19 +200,19 @@ export PATH="/opt/miniconda3/bin:$PATH"
 pip install nbformat
 pip install nbconvert
 
-git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
 vim +PluginInstall +qall
 
-cd $HOME
+cd "$HOME"
 wget http://www.drchip.org/astronaut/vim/vbafiles/netrw.vba.gz
 vim netrw.vba.gz +"packadd vimball" +"so %" +qall
-rm $HOME/netrw.vba*
+rm "$HOME/netrw.vba*"
 
-cd $HOME/src
+cd "$HOME/src"
 git clone https://github.com/brummer10/pajackconnect
-cp pajackconnect/pajackconnect $HOME/bin/
+cp pajackconnect/pajackconnect "$HOME/bin/"
 
-cd $HOME/src
+cd "$HOME/src"
 git clone https://github.com/DavidRV00/bookmarks
 cd bookmarks
 ./install
@@ -217,13 +221,13 @@ cd bookmarks
 echo
 set +x
 echo "Enter email address to set up (empty to stop): "
-read email
+read -r email
 while [ "$email" != "" ]; do
-	mw -a $email
+	mw -a "$email"
 
 	echo
 	echo "Enter email address to set up (empty to stop): "
-	read email
+	read -r email
 done
 set -x
 
