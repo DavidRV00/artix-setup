@@ -41,6 +41,7 @@ sudo wget https://github.com/archlinux/svntogit-packages/raw/packages/pacman-mir
 
 sudo pacman -Syu
 sudo pacman -S artix-archlinux-support
+sudo pacman -Syu
 sudo pacman -S lf
 
 sudo pacman-key --populate archlinux
