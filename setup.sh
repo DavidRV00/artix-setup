@@ -33,18 +33,21 @@ sudo pacman -Syu
 
 sudo pacman -S sed grep wget awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
 
+# TODO: Add universe, then install artix-archlinux-support, then add other repos.
+
 # Set up package settings
 cd "$srcdir"
 sudo cp /etc/pacman.conf pacman.conf-bkp
 sudo cp setup-config/pacman.conf-sample /etc/pacman.conf
-sudo wget https://github.com/archlinux/svntogit-packages/raw/packages/pacman-mirrorlist/trunk/mirrorlist -O /etc/pacman.d/mirrorlist-arch
+sudo pacman -Sy artix-archlinux-support
 
-sudo pacman -Syu
-sudo pacman -S artix-archlinux-support
-sudo pacman -Syu
-sudo pacman -S lf
+sudo wget https://github.com/archlinux/svntogit-packages/raw/packages/pacman-mirrorlist/trunk/mirrorlist -O /etc/pacman.d/mirrorlist-arch
+sudo sed -i 's/^#after-universe: //g' /etc/pacman.conf
 
 sudo pacman-key --populate archlinux
+
+sudo pacman -Syu
+sudo pacman -S lf
 
 sudo cp /etc/makepkg.conf makepkg.conf-bkp
 sudo cp setup-config/makepkg.conf-sample /etc/makepkg.conf
