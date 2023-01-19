@@ -5,8 +5,8 @@ config.load_autoconfig()
 c.tabs.position = "top"
 
 c.url.searchengines = {
-    'DEFAULT':       'https://searx.ninja/search?q={}',
-    # 'DEFAULT':       'https://searx.be/search?q={}',
+    # 'DEFAULT':       'https://searx.ninja/search?q={}',
+    'DEFAULT':       'https://searx.be/search?q={}',
 }
 with open('/home/david/.config/qutebrowser/searchengines') as csvfile:
     reader = csv.reader(csvfile, delimiter=' ')
@@ -92,7 +92,7 @@ c.tabs.pinned.frozen = False
 c.url.open_base_url = True
 
 c.auto_save.interval = 300
-# c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = True
 # config.bind('I', 'config-cycle colors.webpage.darkmode.enabled ;; restart')
 
 c.editor.command = ["terminal", "-e", "nvim", "{}"]
@@ -270,10 +270,12 @@ c.colors.tabs.indicator.stop = base0C
 #
 # # Background color for hints. Note that you can use a `rgba(...)` value
 # # for transparency.
-# c.colors.hints.bg = base0A
+c.colors.hints.bg = base02
 #
 # # Font color for the matched part of hints.
-# c.colors.hints.match.fg = base05
+c.colors.hints.match.fg = base07
+
+c.hints.border = "1px solid #CDDDFA"
 #
 # # Text color for the keyhint widget.
 # c.colors.keyhint.fg = base05
@@ -397,5 +399,6 @@ c.colors.statusbar.url.success.https.fg = base02
 # # Background color for webpages if unset (or empty to use the theme's
 # # color).
 # c.colors.webpage.bg = base00
-# c.colors.webpage.bg = "#111111"
-c.colors.webpage.bg = "#dfdfdd"
+# c.colors.webpage.bg = "#ffffff"
+c.colors.webpage.bg = "#162023"
+

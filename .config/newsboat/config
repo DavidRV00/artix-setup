@@ -31,15 +31,15 @@ bind-key U show-urls
 bind-key L toggle-show-read-feeds
 bind-key / goto-title
 
-color listnormal black default
-color listfocus white default
+color listnormal green default
+color listfocus green default bold
 color listnormal_unread blue default
 color listfocus_unread blue default bold
 color info white black
 color article white default
 
 browser qutebrowser
-macro , open-in-browser
+macro , open-in-browser-and-mark-read ; up
 #macro t set browser "tsp youtube-dl --add-metadata -ic"; open-in-browser ; set browser google-chrome
 #macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best"; open-in-browser ; set browser google-chrome
 #macro v set browser "setsid nohup vlc %u > /dev/null 2>&1 &"; open-in-browser ; set browser google-chrome

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 layoutscript="$(ls $HOME/.screenlayout/*.sh | head -n1)"
 if [ "$layoutscript" == "" ]; then
 	arandr &
