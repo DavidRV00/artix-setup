@@ -39,14 +39,17 @@ sudo pacman -S sed grep wget awk fzf git artools-base gnupg libssh2 openssh ntfs
 cd "$srcdir"
 sudo cp /etc/pacman.conf pacman.conf-bkp
 sudo cp setup-config/pacman.conf-sample /etc/pacman.conf
-sudo pacman -Sy artix-archlinux-support reflector
+sudo cp setup-config/mirrorlist-arch-sample /etc/pacman.d/mirrorlist-arch
+sudo pacman -Sy artix-archlinux-support
 
-reflector --verbose --country 'United States' -l 20 -f 5 --sort rate --save /etc/pacman.d/mirrorlist-arch
 sudo sed -i 's/^# after-universe: //g' /etc/pacman.conf
 
 sudo pacman-key --populate archlinux
-
 sudo pacman -Syu
+
+sudo pacman -S reflector
+reflector --verbose --country 'United States' -l 20 -f 5 --sort rate --save /etc/pacman.d/mirrorlist-arch
+
 sudo pacman -S lf
 
 sudo cp /etc/makepkg.conf makepkg.conf-bkp
