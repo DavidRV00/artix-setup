@@ -1,0 +1,4 @@
+#!/bin/sh
+
+open_flags="$@"
+echo "open $open_flags $(bukumenu web)" >> "$QUTE_FIFO"

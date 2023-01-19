@@ -1,0 +1,7 @@
+[General]
+defaultUsername=david
+displayName=CalServer
+limitSyncRange=false
+refreshInterval=3
+remoteUrls=$default$|CalDav|https://cal.davidv.xyz/
+settingsVersion=3
