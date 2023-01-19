@@ -29,22 +29,23 @@ mkdir -p "$HOME/src"
 mkdir -p "$HOME/projects"
 mkdir -p "$HOME/current"
 
-sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
+sudo pacman -Syu
+
+sudo pacman -S sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
 
 # Set up package settings
 cd "$srcdir"
 sudo cp /etc/pacman.conf pacman.conf-bkp
 sudo cp setup-config/pacman.conf-sample /etc/pacman.conf
+
+sudo pacman -Syu
 sudo pacman -S artix-archlinux-support
+sudo pacman -S lf
 
 sudo pacman-key --populate archlinux
 
 sudo cp /etc/makepkg.conf makepkg.conf-bkp
 sudo cp setup-config/makepkg.conf-sample /etc/makepkg.conf
-
-sudo pacman -Syu
-
-sudo pacman -S lf
 
 # Interactively mount drives
 set +x
