@@ -29,7 +29,7 @@ mkdir -p "$HOME/src"
 mkdir -p "$HOME/projects"
 mkdir -p "$HOME/current"
 
-sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
+sudo pacman -Sy sed lf grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
 
 # Interactively mount drives
 set +x
@@ -74,12 +74,14 @@ set -euxo pipefail
 # GPG keys
 gpg --full-gen-key
 
+# TODO: How am I supposed to find it while in this installer?
 set +x
-echo "Enter gpg location to import (empty to stop): "
-read -r secretfile
-while [ "$secretfile" != "" ]; do
+echo "Enter gpg location(s) to import (empty to stop): "
+#read -r secretfile
+secretfiles=$(lf -command "set hidden\!" -selection-path /dev/stdout)
+while [ "$secretfiles" != "" ]; do
 	set -x
-	gpg --import "$secretfile"
+	gpg --import "$secretfiles"
 	set +x
 
 	clear
