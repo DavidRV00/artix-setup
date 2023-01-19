@@ -31,7 +31,7 @@ mkdir -p "$HOME/current"
 
 sudo pacman -Syu
 
-sudo pacman -S sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
+sudo pacman -S sed grep wget awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
 
 # Set up package settings
 cd "$srcdir"
