@@ -22,6 +22,8 @@ alias yay="yay --noconfirm"
 srcdir="$(pwd)"
 
 mkdir -p $HOME/src
+mkdir -p $HOME/projects
+mkdir -p $HOME/current
 
 sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g
 
