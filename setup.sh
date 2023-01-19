@@ -29,7 +29,20 @@ mkdir -p "$HOME/src"
 mkdir -p "$HOME/projects"
 mkdir -p "$HOME/current"
 
-sudo pacman -Sy sed lf grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
+# Set up package settings
+cd "$srcdir"
+sudo cp /etc/pacman.conf pacman.conf-bkp
+sudo cp setup-config/pacman.conf-sample /etc/pacman.conf
+sudo pacman -S artix-archlinux-support
+
+sudo pacman-key --populate archlinux
+
+sudo cp /etc/makepkg.conf makepkg.conf-bkp
+sudo cp setup-config/makepkg.conf-sample /etc/makepkg.conf
+
+sudo pacman -Syu
+
+sudo pacman -S sed lf grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
 
 # Interactively mount drives
 set +x
@@ -141,19 +154,6 @@ echo
 echo "Enter git name: "
 read -r gitname
 git config --global user.name "$gitname"
-
-# Set up package settings
-cd "$srcdir"
-sudo cp /etc/pacman.conf pacman.conf-bkp
-sudo cp setup-config/pacman.conf-sample /etc/pacman.conf
-sudo pacman -S artix-archlinux-support
-
-sudo pacman-key --populate archlinux
-
-sudo cp /etc/makepkg.conf makepkg.conf-bkp
-sudo cp setup-config/makepkg.conf-sample /etc/makepkg.conf
-
-sudo pacman -Syu
 
 # Install official packages
 cat pacman-pkgs.txt | sed 's/^#.*//g' | sed '/^$/d' | sudo pacman -S -
