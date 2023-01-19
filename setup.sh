@@ -123,21 +123,24 @@ while [ "$secretfiles" != "" ]; do
 	gpg --edit-key $key
 	clear
 
-	echo "Enter gpg location to import (empty to stop): "
-	read -r secretfile
+	echo "Enter gpg location(s) to import (empty to stop): "
+	#read -r secretfile
+	secretfiles=$(lf -command "set hidden\!" -selection-path /dev/stdout)
 done
 gpgconf --kill gpg-agent
 
 # SSH keys
 mkdir -p "$HOME/.ssh"
 ssh-keygen
-echo "Enter ssh key location to copy: "
-read -r sshfile
-while [ "$sshfile" != "" ]; do
-	cp "$sshfile" "$HOME/.ssh/"
+echo "Enter ssh key location(s) to copy: "
+#read -r sshfile
+sshfiles=$(lf -command "set hidden\!" -selection-path /dev/stdout)
+while [ "$sshfiles" != "" ]; do
+	cp "$sshfiles" "$HOME/.ssh/"
 
-	echo "Enter ssh key location to copy: "
-	read -r sshfile
+	echo "Enter ssh key location(s) to copy: "
+	#read -r sshfile
+	sshfiles=$(lf -command "set hidden\!" -selection-path /dev/stdout)
 done
 if [ "$(ls ~/.ssh)" != "" ]; then
 	chmod 600 ~/.ssh/*
