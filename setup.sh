@@ -29,6 +29,8 @@ mkdir -p "$HOME/src"
 mkdir -p "$HOME/projects"
 mkdir -p "$HOME/current"
 
+sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
+
 # Set up package settings
 cd "$srcdir"
 sudo cp /etc/pacman.conf pacman.conf-bkp
@@ -42,7 +44,7 @@ sudo cp setup-config/makepkg.conf-sample /etc/makepkg.conf
 
 sudo pacman -Syu
 
-sudo pacman -S sed lf grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
+sudo pacman -S lf
 
 # Interactively mount drives
 set +x
