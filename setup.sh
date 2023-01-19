@@ -29,7 +29,7 @@ mkdir -p "$HOME/src"
 mkdir -p "$HOME/projects"
 mkdir -p "$HOME/current"
 
-sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g
+sudo pacman -Sy sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
 
 # Interactively mount drives
 set +x
@@ -42,13 +42,21 @@ get_part() {
 while true; do
 	part=$( get_part "Select a partition to mount (esc to stop): " )
 	[ "$part" != "" ] || break
+	devloc="$part"
 
-	echo "Enter mount location for $part: "
-	read -r loc
+	echo "Enter a name for the mountpoint for $part: "
+	read -r mntloc
+
+	read -p "Is this a LUKS-encrypted drive? [y/n] " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		sudo cryptsetup open "/dev/$part" "$mntloc"
+		devloc="mapper/$mntloc"
+	fi
 
 	set -x
-	mkdir -p "$loc"
-	mount /dev/"$part" "$loc"
+	sudo mkdir -p "/media/$mntloc"
+	sudo mount "/dev/$devloc" "/media/$mntloc"
 	set +x
 	sleep 0.5
 	clear
@@ -57,6 +65,7 @@ done
 lsblk
 echo
 
+# TODO: write encrypted volumes to crypttab?
 echo "Writing to fstab:"
 sudo fstabgen -U / | sudo tee /etc/fstab
 
@@ -70,7 +79,7 @@ echo "Enter gpg location to import (empty to stop): "
 read -r secretfile
 while [ "$secretfile" != "" ]; do
 	set -x
-	gpg --import $secretfile
+	gpg --import "$secretfile"
 	set +x
 
 	clear
