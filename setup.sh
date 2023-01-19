@@ -37,6 +37,7 @@ sudo pacman -S sed grep awk fzf git artools-base gnupg libssh2 openssh ntfs-3g c
 cd "$srcdir"
 sudo cp /etc/pacman.conf pacman.conf-bkp
 sudo cp setup-config/pacman.conf-sample /etc/pacman.conf
+sudo wget https://github.com/archlinux/svntogit-packages/raw/packages/pacman-mirrorlist/trunk/mirrorlist -O /etc/pacman.d/mirrorlist-arch
 
 sudo pacman -Syu
 sudo pacman -S artix-archlinux-support
