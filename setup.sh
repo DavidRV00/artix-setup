@@ -254,6 +254,8 @@ git clone https://github.com/DavidRV00/bookmarks
 cd bookmarks
 ./install
 
+cd "$srcdir"
+
 # Set up email
 echo
 set +x
@@ -304,6 +306,9 @@ EOF
 
 # Posix shell
 sudo ln -sfT dash /usr/bin/sh
+
+# Stuff to do manually
+cp ./setup-config/setupreminder.md "$HOME/.cache/"
 
 # TODO: set up cron jobs
 
