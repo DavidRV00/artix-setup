@@ -293,9 +293,6 @@ done
 # Default applications
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
-# KDE theme
-lookandfeeltool -a org.kde.breezedark.desktop
-
 # Xorg config
 sudo cat << EOF | sudo tee -a /etc/X11/xorg.conf.d/20-intel-gpu.conf
 Section "Device"
