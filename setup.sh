@@ -16,6 +16,7 @@
 #					- login, system-local-login, ...
 
 set -x
+shopt -s expand_aliases
 
 alias sudo="sudo "
 alias pacman="pacman --noconfirm"
@@ -173,7 +174,7 @@ read -r gitname
 git config --global user.name "$gitname"
 
 # Install official packages
-cat pacman-pkgs.txt | sed 's/^#.*//g' | sed '/^$/d' | sudo pacman --noconfirm -S -
+cat pacman-pkgs.txt | sed 's/^#.*//g' | sed '/^$/d' | sudo pacman -S -
 
 # Install yay
 sudo pacman -S base-devel
