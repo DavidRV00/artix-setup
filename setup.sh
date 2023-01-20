@@ -156,6 +156,7 @@ if [ "$(ls ~/.ssh)" != "" ]; then
 fi
 
 # Password store
+rm -rf "$HOME/.password-store"
 if test -f ~/.ssh/passgit; then
 	GIT_SSH_COMMAND="ssh -i ~/.ssh/passgit -F /dev/null" \
 		git clone ssh://git@davidv.xyz:/home/git/pass-repo "$HOME/.password-store"
