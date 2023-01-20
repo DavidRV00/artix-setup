@@ -172,7 +172,7 @@ read -r gitname
 git config --global user.name "$gitname"
 
 # Install official packages
-cat pacman-pkgs.txt | sed 's/^#.*//g' | sed '/^$/d' | sudo pacman -S -
+cat pacman-pkgs.txt | sed 's/^#.*//g' | sed '/^$/d' | sudo pacman --noconfirm -S -
 
 # Install yay
 sudo pacman -S base-devel
