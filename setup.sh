@@ -237,7 +237,7 @@ vim +PluginInstall +qall
 cd "$HOME"
 wget http://www.drchip.org/astronaut/vim/vbafiles/netrw.vba.gz
 vim netrw.vba.gz +"packadd vimball" +"so %" +qall
-rm "$HOME/netrw.vba*"
+rm -f "$HOME/netrw.vba*"
 
 cd "$HOME/src"
 git clone https://github.com/brummer10/pajackconnect
