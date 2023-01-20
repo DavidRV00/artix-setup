@@ -1,8 +1,8 @@
 #!/bin/bash
-layoutscript="$(ls $HOME/.screenlayout/*.sh | head -n1)"
+layoutscript="$(ls "$HOME/.screenlayout/*.sh" | head -n1)"
 if [ "$layoutscript" == "" ]; then
 	arandr &
 	notify-send "Notice" "Don't forget to save the layout"
 else
-	sh $layoutscript
+	sh "$layoutscript"
 fi
