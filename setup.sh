@@ -195,6 +195,7 @@ sudo rm makepkg.conf-bkp
 
 # Retrieve configs + scripts / interfaces
 cd "$HOME/src"
+rm -rf bare-configs.git
 git clone --bare https://github.com/davidrv00/bare-configs.git
 
 # TODO: Fix this
