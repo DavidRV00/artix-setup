@@ -212,18 +212,21 @@ touch "$HOME/.vim_vundle_noport.vim"
 
 # Retrieve source-based tools
 cd "$HOME/src"
+rm -rf dwm-fork
 git clone https://github.com/DavidRV00/dwm-fork
 cd dwm-fork
 make
 sudo make install
 
 cd "$HOME/src"
+rm -rf dmenu-fork
 git clone https://github.com/DavidRV00/dmenu-fork
 cd dmenu-fork
 make
 sudo make install
 
 cd "$HOME/src"
+rm -rf vim-jupyter-run
 git clone https://github.com/DavidRV00/vim-jupyter-run
 cd vim-jupyter-run
 ./install
@@ -231,6 +234,7 @@ export PATH="/opt/miniconda3/bin:$PATH"
 pip install nbformat
 pip install nbconvert
 
+rm -rf "$HOME/.vim/bundle/Vundle.vim"
 git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
 vim +PluginInstall +qall
 
@@ -240,10 +244,12 @@ vim netrw.vba.gz +"packadd vimball" +"so %" +qall
 rm -f "$HOME/netrw.vba*"
 
 cd "$HOME/src"
+rm -rf pajackconnect
 git clone https://github.com/brummer10/pajackconnect
 cp pajackconnect/pajackconnect "$HOME/bin/"
 
 cd "$HOME/src"
+rm -rf bookmarks
 git clone https://github.com/DavidRV00/bookmarks
 cd bookmarks
 ./install
