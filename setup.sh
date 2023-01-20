@@ -68,6 +68,8 @@ while true; do
 	[ "$part" != "" ] || break
 	devloc="$part"
 
+	clear
+
 	echo "Enter a name for the mountpoint for $part: "
 	read -r mntloc
 

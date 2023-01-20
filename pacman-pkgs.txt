@@ -138,6 +138,6 @@ docker
 docker-compose
 docker-runit
 postgresql
-textlive-most
+texlive-most
 tiled
 xdot
