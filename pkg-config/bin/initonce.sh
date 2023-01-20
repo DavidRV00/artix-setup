@@ -1,6 +1,11 @@
 #!/bin/sh
 
+donefile="$HOME/.config/.initoncedone"
+if [ -e "$donefile" ]; then
+	exit
+fi
+
 # KDE theme
 lookandfeeltool -a org.kde.breezedark.desktop
 
-sed -i 's/^exec initonce &/#exec initonce &/g' "$HOME/.xinitrc"
+touch "$donefile"
