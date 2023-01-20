@@ -567,10 +567,10 @@ let g:airline_theme='base16_eighties'
 "let &colorcolumn=join(range(101,999),",")
 
 "set cursorline
-"augroup colorenter
-"  autocmd WinEnter * set cursorline
-"  autocmd WinLeave * set nocursorline
-"augroup END
+augroup colorenter
+	autocmd WinEnter * set cursorline
+	autocmd WinLeave * set nocursorline
+augroup END
 
 "set fillchars+=vert:\ " Note the space
 "set fillchars+=vert:∎" Note the space
