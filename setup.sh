@@ -193,11 +193,12 @@ sudo rm pacman.conf-bkp
 sudo rm makepkg.conf-bkp
 
 # Retrieve configs + scripts / interfaces
-#cd "$HOME/src"
-#git clone --bare https://github.com/davidrv00/bare-configs.git
-# TODO: Test this
-git init --bare "$HOME/src/bare-configs.git"
-git subtree --prefix=pkg-config push "$HOME/src/bare-configs.git"
+cd "$HOME/src"
+git clone --bare https://github.com/davidrv00/bare-configs.git
+
+# TODO: Fix this
+#git init --bare "$HOME/src/bare-configs.git"
+#git subtree --prefix=pkg-config push "$HOME/src/bare-configs.git"
 
 alias config='git --git-dir="$HOME/src/bare-configs.git" --work-tree="$HOME"'
 config config --local status.showUntrackedFiles no
