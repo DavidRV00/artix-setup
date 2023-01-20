@@ -2,7 +2,6 @@
 
 # TODO first:
 # option for full-disk encryption
-# cryptsetup to mount locked usb
 
 # TODO:
 #		- organize configs better
@@ -32,8 +31,6 @@ mkdir -p "$HOME/current"
 sudo pacman -Syu
 
 sudo pacman -S sed grep wget awk fzf git artools-base gnupg libssh2 openssh ntfs-3g cryptsetup
-
-# TODO: Add universe, then install artix-archlinux-support, then add other repos.
 
 # Set up package settings
 cd "$srcdir"
@@ -285,6 +282,10 @@ done
 
 # Default applications
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
+
+# KDE theme
+kpackagetool5 --install LookAndFeel
+lookandfeeltool -a org.kde.breezedark.desktop
 
 # Xorg config
 sudo cat << EOF | sudo tee -a /etc/X11/xorg.conf.d/20-intel-gpu.conf
