@@ -1,5 +1,6 @@
 #!/bin/sh
 
+exec initonce &
 exec setlayout &
 exec dunst &
 exec nitrogen --restore &
