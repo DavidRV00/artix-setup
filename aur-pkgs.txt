@@ -3,7 +3,7 @@
 
 # Audio
 vital-synth
-zyn-fusion
+#zyn-fusion
 #distrho-ports-lv2-git
 talentedhack-git
 
