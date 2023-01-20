@@ -294,7 +294,6 @@ done
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
 # KDE theme
-kpackagetool5 --install LookAndFeel
 lookandfeeltool -a org.kde.breezedark.desktop
 
 # Xorg config
