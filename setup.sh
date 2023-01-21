@@ -28,6 +28,7 @@ srcdir="$(pwd)"
 mkdir -p "$HOME/src"
 mkdir -p "$HOME/projects"
 mkdir -p "$HOME/current"
+mkdir -p "$HOME/notes"
 
 sudo pacman -Syu
 
