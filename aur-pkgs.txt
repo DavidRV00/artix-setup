@@ -4,7 +4,7 @@
 # Audio
 vital-synth
 #zyn-fusion
-#distrho-ports-lv2-git
+distrho-ports-lv2-git
 talentedhack-git
 
 # Web/email/etc
@@ -20,8 +20,13 @@ dashbinsh
 castnow-git
 sc-im
 zoom
+caffeine-ng
+moar
+plex-media-server
 
 # Dev
 entt
 libresprite
 nvm
+codelldb-bin
+quicktype

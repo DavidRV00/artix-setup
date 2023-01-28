@@ -7,6 +7,8 @@ nm-connection-editor
 wpa_supplicant-runit
 connman
 connman-runit
+nfs-utils
+p2pool
 
 # Basics
 vim
@@ -57,6 +59,8 @@ discord
 jq
 kalendar
 lf
+virtualbox
+virtualbox-host-modules-artix
 
 # Sysadmin
 cronie
@@ -85,6 +89,11 @@ gnome-themes-extra
 xf86-video-intel
 adwaita-qt6
 plasma-workspace
+adwaita-qt5
+kde-gtk-config
+lxappearance
+maim
+slop
 
 # Image manipulation
 imagemagick
@@ -106,6 +115,8 @@ qjackctl
 a2jmidid
 drumkv1
 zynaddsubfx
+alsa-utils
+geonkick
 
 # Video recording
 obs-studio
@@ -141,3 +152,15 @@ postgresql
 texlive-most
 tiled
 xdot
+bash-language-server
+bc
+dash
+glm
+librdkafka
+pandoc
+pyright
+python-lsp-server
+shellcheck
+texlive-bin
+typescript-language-server
+

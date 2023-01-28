@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 grep -vxFf <(sudo pacman -Qqm) <(sudo pacman -Qqe) | sort | uniq \
 	> /tmp/pacman-installed
