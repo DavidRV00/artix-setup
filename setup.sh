@@ -312,5 +312,7 @@ sudo ln -sfT dash /usr/bin/sh
 cp ./setup-config/setupreminder.md "$HOME/.cache/"
 
 # TODO: set up cron jobs
-
 # TODO: Setup audio output(s)
+# TODO: Allow non-root to set screen brightness
+# TODO: connmanctl enable wifi
+
