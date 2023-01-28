@@ -1,6 +1,7 @@
 source ~/.profile
 
-setopt histignorealldups sharehistory
+setopt histignorealldups
+unsetopt share_history
 
 bindkey -v
 export KEYTIMEOUT=10

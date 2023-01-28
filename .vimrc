@@ -5,6 +5,7 @@ set nocompatible
 " Basic options "
 "==============="
 
+set cursorline
 set tabpagemax=300
 set nohlsearch
 "set splitbelow
@@ -213,9 +214,9 @@ nnoremap vvv ^v$h
 inoremap <expr> . pumvisible() ? ".<C-E><C-X><C-U>" : ".<C-X><C-U>"
 
 " Autoclose parens, brackets, etc...
-"inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap { {}<Esc>i
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
 inoremap {<CR> {<CR>}<Esc>O
 inoremap <silent> ) <c-r>=ClosePair(')')<CR>
 inoremap <silent> ] <c-r>=ClosePair(']')<CR>
@@ -422,6 +423,8 @@ if isdirectory(expand('$HOME/.vim/bundle/Vundle.vim'))
     \ 'bash': ['bash-language-server', 'start'],
     \ }
 
+  Plugin 'ray-x/lsp_signature.nvim'
+
   Plugin 'ms-jpq/coq_nvim', {'branch': 'coq'}
   
   " 9000+ Snippets
@@ -443,8 +446,6 @@ if isdirectory(expand('$HOME/.vim/bundle/Vundle.vim'))
         \ "limits.completion_auto_timeout": 1,
         \ "display.pum.fast_close": v:true,
         \ }
-
-  Plugin 'ray-x/lsp_signature.nvim'
 
   Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
