@@ -4,7 +4,7 @@
 # Audio
 vital-synth
 #zyn-fusion
-distrho-ports-lv2-git
+#distrho-ports-lv2-git
 talentedhack-git
 
 # Web/email/etc
