@@ -163,4 +163,5 @@ python-lsp-server
 shellcheck
 texlive-bin
 typescript-language-server
+kubectl
 

@@ -6,14 +6,10 @@
 # TODO:
 #		- organize configs better
 #			- maintain branches: base, custom(/branches per computer)
+#			- a different config repo for /-based? Or just re-home `config` to / ?
 #		- make modular, idempotent setup scripts that can be simply slotted in
 # 		- plex
 # 		- rss-bridge
-# 		- mail sync
-#			- pass git alias / command
-#			- pam gnupg
-#				- follow the instructions in https://github.com/cruegge/pam-gnupg
-#					- login, system-local-login, ...
 
 set -x
 shopt -s expand_aliases
@@ -282,12 +278,15 @@ sudo cat << EOF | sudo tee -a /etc/security/limits.conf
 @audio		-	memlock		unlimited
 EOF
 
+# Docker
+sudo usermod -aG docker "$USER"
+
 # Pull in templates and special data and stuff
 # TODO: Use some kind of spec file
 
 # Set up runit autostarts
 set +x
-for svc in bluetoothd cronie ntpd wpa_supplicant syncthing; do
+for svc in bluetoothd cronie ntpd wpa_supplicant syncthing docker; do
 	set -x
 	sudo ln -s /etc/runit/sv/"$svc" /run/runit/service/
 	set +x
@@ -308,10 +307,15 @@ EOF
 # Posix shell
 sudo ln -sfT dash /usr/bin/sh
 
+# pam-gnupg
+./setup-scripts/pam-gnupg.sh
+
+# cron jobs
+(crontab -l; echo "* * * * * /usr/bin/mailsync")|awk '!x[$0]++'|crontab -
+
 # Stuff to do manually
 cp ./setup-config/setupreminder.md "$HOME/.cache/"
 
-# TODO: set up cron jobs
 # TODO: Setup audio output(s)
 # TODO: Allow non-root to set screen brightness
 # TODO: connmanctl enable wifi
