@@ -312,6 +312,9 @@ sudo ln -sfT dash /usr/bin/sh
 
 # cron jobs
 (crontab -l; echo "* * * * * /usr/bin/mailsync")|awk '!x[$0]++'|crontab -
+(crontab -l; echo "30 */1 * * *  /usr/bin/bukumigrate-ytplaylist watch-later")|awk '!x[$0]++'|crontab -
+(crontab -l; echo "0 */1 * * *  /usr/bin/bukumigrate-ytplaylist watch-later,yt-liked 'https://www.youtube.com/playlist?list=LL'")|awk '!x[$0]++'|crontab -
+(crontab -l; echo "30 */12 * * *  /usr/bin/bukumigrate-qutebrowser")|awk '!x[$0]++'|crontab -
 
 # Stuff to do manually
 cp ./setup-config/setupreminder.md "$HOME/.cache/"
